@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Dealey Plaza Files</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Caveat:wght@600&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a manila case folder on a wooden desk. Index tabs, paper-clipped sheets, taped photos, rubber stamps. */
+:root{
+  --desk:#4b3c2d; --paper:#e4ca93; --card:#fffaf0; --soft:#f3e8c9; --mini:#d6bb7c;
+  --line:#cdb98c; --edge:#b8975a; --ink:#2a2318; --muted:#65583f;
+  --accent:#a3302b; --accent-ink:#ffffff; --steel:#244f86; --ok:#2e6b4d;
+  --on-steel:#ffffff; --on-ok:#ffffff; --note:#fff0a6; --note-ink:#4b3a00;
+  --disp:'Special Elite','Courier New',monospace;
+  --hand:'Caveat','Bradley Hand','Segoe Script',cursive;
+  --body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --desk:#1c1915; --paper:#5d4e36; --card:#2b261d; --soft:#363024; --mini:#6e5d40;
+    --line:#5b4f39; --edge:#7d6a47; --ink:#f0e6cd; --muted:#d2c5a6;
+    --accent:#e2675f; --accent-ink:#1b0d0c; --steel:#8fbfe0; --ok:#7fc9a0;
+    --on-steel:#0e1f2c; --on-ok:#0c2016; --note:#5a4b17; --note-ink:#f6e6a6; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --desk:#1c1915; --paper:#5d4e36; --card:#2b261d; --soft:#363024; --mini:#6e5d40;
+  --line:#5b4f39; --edge:#7d6a47; --ink:#f0e6cd; --muted:#d2c5a6;
+  --accent:#e2675f; --accent-ink:#1b0d0c; --steel:#8fbfe0; --ok:#7fc9a0;
+  --on-steel:#0e1f2c; --on-ok:#0c2016; --note:#5a4b17; --note-ink:#f6e6a6; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background-color:var(--desk);
+  background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.07) 0 2px,transparent 2px 11px),repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 8px);
+  color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;padding:58px 12px 34px}
+.wrap{position:relative;max-width:960px;margin:0 auto;background-color:var(--paper);
+  background-image:radial-gradient(rgba(110,70,10,.07) 1px,transparent 1.3px),linear-gradient(180deg,rgba(255,255,255,.18),rgba(0,0,0,.06));
+  background-size:7px 7px,100% 100%;
+  border:1px solid var(--edge);border-radius:3px 12px 4px 4px;padding:30px 24px 44px;
+  box-shadow:0 2px 0 rgba(0,0,0,.18),0 22px 44px rgba(0,0,0,.42),inset 0 0 0 1px rgba(255,255,255,.22)}
+.wrap::after{content:"";position:absolute;left:0;top:0;bottom:0;width:9px;background:linear-gradient(90deg,rgba(90,55,10,.22),transparent);border-radius:3px 0 0 4px;pointer-events:none}
+h1,h2,h3{font-family:var(--disp);font-weight:400;line-height:1.2;text-wrap:balance;margin:0 0 .5em}
+h1{font-size:2.3rem}
+h2{font-size:1.55rem}
+h3{font-size:1.2rem}
+p{margin:0 0 .9em;max-width:68ch}
+a{color:var(--steel)}
+.eyebrow{font-family:var(--disp);letter-spacing:.08em;text-transform:uppercase;font-size:.82rem;color:var(--accent);margin:0 0 .4em}
+header.top{position:absolute;top:-37px;left:26px;background-color:var(--paper);border:1px solid var(--edge);border-bottom:0;border-radius:11px 11px 0 0;padding:7px 20px 5px;box-shadow:0 -2px 5px rgba(0,0,0,.15)}
+header.top .brand{font-family:var(--disp);font-size:1.25rem;white-space:nowrap}
+header.top .brand span{color:var(--accent)}
+.stampline{position:absolute;top:9px;right:22px;font-family:var(--disp);font-size:.8rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+nav.tabs{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0 24px;border-bottom:2px solid var(--edge)}
+nav.tabs button{font:inherit;font-size:.95rem;background:var(--mini);color:var(--ink);border:1px solid var(--edge);border-bottom:0;border-radius:9px 9px 0 0;padding:7px 13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;margin-bottom:-2px}
+nav.tabs button[aria-current="page"]{background:var(--card);border-top:4px solid var(--accent);padding-top:4px;font-weight:700}
+nav.tabs .num{font-family:var(--disp);opacity:.7}
+nav.tabs svg{width:14px;height:14px}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:2px;padding:22px 24px;margin:0 0 20px;box-shadow:0 1px 0 rgba(0,0,0,.1),0 7px 16px rgba(60,38,8,.2)}
+.card.tight{padding:14px 16px;box-shadow:none;margin:0 0 12px;background:var(--soft)}
+.card.clip{padding-top:36px}
+.clip::before{content:"";position:absolute;top:-18px;left:30px;width:20px;height:50px;z-index:2;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='66' viewBox='0 0 26 66'%3E%3Cpath d='M8 48V14a6 6 0 0 1 12 0v38a9 9 0 0 1-18 0V18' fill='none' stroke='%23fff' stroke-opacity='.55' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M8 48V14a6 6 0 0 1 12 0v38a9 9 0 0 1-18 0V18' fill='none' stroke='%237b838c' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/contain;
+  filter:drop-shadow(1px 2px 1px rgba(0,0,0,.35))}
+.stack{display:flex;flex-direction:column;gap:14px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font-family:var(--disp);font-size:1rem;background:var(--accent);color:var(--accent-ink);border:2px solid var(--accent);border-radius:4px;padding:9px 16px;cursor:pointer;letter-spacing:.03em;box-shadow:2px 2px 0 rgba(0,0,0,.28)}
+.btn.secondary{background:var(--card);color:var(--ink);border:2px solid var(--ink)}
+.btn.small{padding:5px 11px;font-size:.9rem}
+.btn:active{transform:translate(1px,1px);box-shadow:1px 1px 0 rgba(0,0,0,.28)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--steel);outline-offset:2px}
+.note{background:var(--note);color:var(--note-ink);border-radius:2px;padding:12px 14px;margin:0 0 16px;max-width:none;box-shadow:2px 3px 6px rgba(60,38,8,.22);border-top:6px solid rgba(0,0,0,.07)}
+.note p{margin:0 0 .5em}.note p:last-child{margin:0}
+.muted{color:var(--muted)}
+ol.steps{padding-left:1.2em;margin:0 0 1em}
+ol.steps li{margin:0 0 .6em;max-width:68ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:34px 18px}
+.route-card{position:relative;margin-top:6px;display:flex;flex-direction:column;gap:8px;background:var(--mini);border:1px solid var(--edge);border-radius:2px 8px 4px 4px;padding:18px 16px 16px;box-shadow:0 4px 9px rgba(60,38,8,.28)}
+.route-card .ftab{position:absolute;top:-21px;left:12px;background:var(--mini);border:1px solid var(--edge);border-bottom:0;border-radius:7px 7px 0 0;padding:2px 12px;font-family:var(--disp);font-size:.8rem}
+.route-card h3{margin:0}
+.route-card p{margin:0;font-size:.95rem}
+.route-card .grow{flex:1}
+.pill{display:inline-block;font-size:.8rem;border:1px solid var(--edge);border-radius:99px;padding:2px 9px;color:var(--ink);background:var(--card);white-space:nowrap}
+.pill.on{background:var(--steel);color:var(--on-steel);border-color:var(--steel)}
+.pill.done{background:var(--ok);color:var(--on-ok);border-color:var(--ok)}
+.pill.bonus{border-color:var(--accent);color:var(--accent)}
+.progress{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;background:var(--note);color:var(--note-ink);padding:12px 16px;margin:0 0 26px;box-shadow:2px 3px 6px rgba(60,38,8,.22)}
+.progress strong{font-family:var(--disp);font-weight:400;font-size:1.1rem}
+.progress .muted{color:var(--note-ink);opacity:.85}
+.claim{position:relative;border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:2px;background:var(--card);padding:18px 20px;margin:0 0 24px;box-shadow:0 1px 0 rgba(0,0,0,.1),0 7px 14px rgba(60,38,8,.2)}
+.claim.clip::before{left:auto;right:30px}
+.stamp{display:inline-block;font-family:var(--disp);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:2px solid var(--accent);border-radius:4px;padding:1px 7px;transform:rotate(-1.5deg);margin:0 0 8px}
+.stamp.big{position:absolute;top:18px;right:22px;font-size:1.15rem;border-width:3px;padding:3px 12px;transform:rotate(7deg);opacity:.85;margin:0;z-index:1}
+.stamp.green{color:var(--ok);border-color:var(--ok)}
+.stampwrap{position:relative}
+.claim h3{margin:0 0 .35em}
+.claim ul{margin:.2em 0 .8em;padding-left:1.2em}
+.claim li{margin:0 0 .3em;max-width:66ch}
+.source{font-size:.88rem;color:var(--muted);margin:0 0 .8em}
+.rate{display:flex;flex-wrap:wrap;gap:8px;margin:.4em 0 .6em;border:0;padding:0}
+.rate legend{font-weight:700;font-size:.95rem;padding:0;margin:0 0 .3em}
+.rate label{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--edge);border-radius:4px;padding:7px 12px;cursor:pointer;background:var(--soft)}
+.rate label:has(input:checked){background:var(--steel);color:var(--on-steel);border-color:var(--steel)}
+.rate input{accent-color:var(--accent)}
+input[type=text],textarea{width:100%;font:inherit;color:var(--ink);background:var(--soft);border:1px solid var(--line);border-bottom:2px solid var(--edge);border-radius:2px;padding:9px 11px}
+textarea{min-height:76px;resize:vertical}
+label.fld{display:block;font-weight:700;font-size:.95rem;margin:0 0 .3em}
+.q{margin:0 0 14px}
+input[type=range]{width:100%;accent-color:var(--accent);max-width:480px}
+.scale{display:flex;justify-content:space-between;max-width:480px;font-size:.85rem;color:var(--muted)}
+.bignum{font-family:var(--disp);font-size:1.6rem;color:var(--accent)}
+.video{border:1px solid var(--line);border-radius:2px;background:var(--card);padding:14px 16px;margin:0 0 14px;box-shadow:0 5px 12px rgba(60,38,8,.16)}
+.video h3{margin:0 0 .2em;font-size:1.1rem}
+.warn{font-size:.88rem;background:var(--note);color:var(--note-ink);border-radius:2px;padding:6px 10px;margin:.4em 0 .7em;max-width:none}
+.vframe{position:relative;aspect-ratio:16/9;width:100%;max-width:640px;background:var(--soft);border:4px solid var(--ink);border-radius:2px;overflow:hidden;margin:.5em 0}
+.vframe .msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;color:var(--muted);font-size:.9rem}
+.vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.alt{background:var(--soft);border-radius:2px;padding:10px 12px;margin:.5em 0;font-size:.95rem;max-width:none}
+.vlink{font-size:.9rem;margin:.3em 0 0}
+.map{width:100%;height:auto;background:var(--card);border:1px solid var(--line);border-radius:2px}
+.map text{font-family:var(--body);font-size:12px;fill:var(--ink)}
+.map .mut{fill:var(--muted)}
+.handnote{font-family:var(--hand);font-size:1.3rem;color:var(--muted);margin:.4em 0 0;max-width:none}
+.timeline{list-style:none;margin:0;padding:0;border-left:3px solid var(--line)}
+.timeline li{position:relative;padding:0 0 12px 18px;max-width:none}
+.timeline li::before{content:"";position:absolute;left:-8px;top:7px;width:13px;height:13px;border-radius:50%;background:var(--accent);border:2px solid var(--card)}
+.timeline b{font-family:var(--disp);font-weight:400;color:var(--accent);display:block;font-size:.9rem}
+dl.words{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:0}
+dl.words dt{font-weight:700}
+dl.words dd{margin:0;max-width:60ch}
+.lock{text-align:center;padding:34px 20px}
+.lock svg{width:44px;height:44px;color:var(--accent)}
+.lock input{max-width:220px;text-align:center;font-family:var(--disp);font-size:1.4rem;letter-spacing:.3em}
+.err{color:var(--accent);font-weight:700;min-height:1.4em;margin:.5em 0 0}
+details.fc{border:1px solid var(--line);border-radius:2px;background:var(--card);margin:0 0 14px;box-shadow:0 5px 12px rgba(60,38,8,.16)}
+details.fc>summary{cursor:pointer;padding:14px 18px;font-family:var(--disp);font-size:1.15rem;list-style:none;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+details.fc>summary::-webkit-details-marker{display:none}
+details.fc>summary::before{content:"+";font-family:var(--disp);color:var(--accent);width:1em}
+details.fc[open]>summary::before{content:"\2212"}
+details.fc .inner{padding:0 18px 18px}
+.answer{border-top:1px dashed var(--edge);padding:12px 0}
+.answer:first-child{border-top:0}
+.answer .was{font-size:.88rem;color:var(--muted);margin:0 0 .2em}
+.answer .short{font-weight:700;margin:0 0 .3em}
+.openq{background:var(--soft);border-left:5px solid var(--steel);border-radius:2px;padding:12px 14px;margin:.8em 0}
+.openq h4{font-family:var(--disp);font-weight:400;margin:0 0 .4em;font-size:1.05rem}
+.openq ul{margin:0;padding-left:1.2em}
+table.cmp{border-collapse:collapse;width:100%;font-size:.95rem}
+table.cmp th,table.cmp td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{background:var(--soft)}
+.tablewrap{overflow-x:auto}
+.traps{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.trap{border:1px solid var(--line);border-radius:2px;padding:10px 12px;background:var(--soft)}
+.trap b{display:block;font-family:var(--disp);font-weight:400;color:var(--accent)}
+.trap p{margin:0;font-size:.93rem}
+.checks label{display:flex;gap:9px;align-items:flex-start;margin:0 0 .45em;max-width:66ch}
+.checks input{margin-top:.35em;accent-color:var(--accent)}
+pre.sheet{white-space:pre-wrap;word-wrap:break-word;font-family:var(--body);font-size:.95rem;background:var(--soft);border:1px solid var(--line);border-radius:2px;padding:14px;max-height:520px;overflow:auto;margin:0}
+.photos{display:flex;flex-wrap:wrap;gap:26px 30px;margin:10px 0 24px;padding-top:8px}
+.route-head{display:flex;flex-wrap:wrap;gap:8px 28px;align-items:flex-start;justify-content:space-between;margin:0 0 6px}
+.route-head .rh-text{flex:1 1 300px}
+figure.photo{position:relative;width:176px;margin:0;background:#fdfaf0;padding:8px 8px 6px;box-shadow:0 2px 3px rgba(0,0,0,.28),0 9px 16px rgba(0,0,0,.22);transform:rotate(var(--rot,-2deg))}
+figure.photo svg{display:block;width:100%;height:auto;filter:sepia(.25) contrast(.95)}
+figure.photo figcaption{font-family:var(--hand);font-size:1.2rem;line-height:1.1;color:#3a2f1c;text-align:center;padding:6px 2px 2px}
+figure.photo::before{content:"";position:absolute;top:-11px;left:50%;width:64px;height:22px;margin-left:-32px;background:rgba(255,238,140,.72);border-left:1px dashed rgba(0,0,0,.1);border-right:1px dashed rgba(0,0,0,.1);transform:rotate(-3deg);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+footer.foot{margin-top:30px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--edge);padding-top:14px}
+@media (max-width:620px){
+  body{padding-top:52px}
+  .wrap{padding:26px 14px 36px}
+  .stampline{display:none}
+  dl.words{grid-template-columns:1fr}dl.words dd{margin-bottom:.5em}
+  h1{font-size:1.8rem}
+  .stamp.big{position:static;display:inline-block;margin-bottom:8px}
+  .card{padding:20px 16px}
+}
+@media print{
+  body{background:#fff;color:#000;padding:0}
+  .wrap{box-shadow:none;border:0;background:#fff;padding:0}
+  .wrap::after{display:none}
+  header.top,.stampline,nav.tabs,footer.foot,.noprint{display:none!important}
+  pre.sheet{max-height:none;border:0;padding:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><div class="brand">The Dealey Plaza <span>Files</span></div></header>
+  <div class="stampline">Classroom investigation &middot; 1&ndash;2 class periods</div>
+  <nav class="tabs" id="nav" aria-label="Activity steps"></nav>
+  <main id="main"></main>
+  <footer class="foot">Everything in the Investigate section is labeled as a claim. Claims are not facts until they are checked. This activity is about a real event and a real family&rsquo;s loss, so please treat it with respect.</footer>
+</div>
+
+<script>
+/* ===== Passcode (teacher releases the fact-check) ===== */
+var PASS_B64 = 'MTEyMjYz';
+
+/* ===== Videos ===== */
+var V = {
+  intro:{id:'fZKDI1DPyWk',title:"John F. Kennedy's Assassination",desc:'A short introduction to the event.',
+    warn:'Contains real historical footage and talk about the assassination.',
+    alt:'On November 22, 1963, President Kennedy was shot while riding in an open car through Dallas, Texas. He died at Parkland Hospital. This clip introduces the people, the place and the day.'},
+  natgeo:{id:'rEVfKKjODBg',title:'National Geographic: how the day unfolded',desc:'A good look at how the events of the day played out, minute by minute.',
+    warn:'Contains real historical footage and talk about the assassination.',
+    alt:'Use the timeline above. It covers the same key moments: the motorcade, the shots, the hospital, Oswald’s arrest and his death two days later.'},
+  revisited:{id:'SsrwbkN9HK4',title:'JFK Revisited: the original explanation of the three shots',desc:'How investigators explained the three shots in the 1960s and 1970s, shortly after the event.',
+    warn:'Talks about the shots and wounds.',
+    alt:'Investigators said three shots were fired from the sixth floor of the Texas School Book Depository. One missed, one hit both President Kennedy and Governor Connally, and one hit the President in the head.'},
+  zap:{id:'ke2t1NV_iaI',title:'Zapruder Frame 313',desc:'How the Zapruder film was made and later released to the public.',
+    warn:'Shows the fatal shot. Skip 4:55 to 5:00, where a reporter uses a mild swear word.',
+    alt:'Abraham Zapruder filmed the motorcade with a home movie camera. LIFE magazine bought the rights, and the public did not see the full film on TV until 1975.'},
+  babushka:{id:'WeUhAIA97iY',title:'The Babushka Lady',desc:'The woman in a headscarf who seems to be filming near the President’s car.',
+    warn:'Contains footage from the day of the shooting.',
+    alt:'A woman in a headscarf stands near the curb and seems to hold a camera. She appears in several home films. She has never been positively identified and no film from her has been found.'},
+  k4:{id:'whBmXPaChh4',title:'The JFK Assassination in 4K',desc:'Modern video technology applied to the Zapruder film. Explore and listen on your own.',
+    warn:'Uses the Zapruder film and may show the fatal shot.',
+    alt:'This video cleans up the Zapruder film so you can see details more clearly, including how people in the car reacted and how Kennedy’s head moved.'},
+  duke:{id:'6jHWTXIMKx4',title:'Trauma doctor recalls when JFK was rushed to Parkland Hospital',desc:'Dr. Red Duke was a young doctor that day. He did not treat Kennedy. He did treat Governor Connally. Listen for what he says about Kennedy’s wounds.',
+    warn:'A doctor describes injuries from the shooting.',
+    alt:'Dr. Red Duke was a fourth-year resident at Parkland Hospital. He tells the story of that day and of treating Governor Connally, who was sitting in front of the President.'},
+  cbs:{id:'ghmY6HmR4fs',title:'CBS News Inquiry: The Warren Report (1967)',desc:'A 1967 test run by CBS News. Were the shots even possible?',
+    warn:'Talks about the shots.',
+    alt:'CBS had skilled shooters try to recreate the shots with a rifle like Oswald’s, to see whether the Warren Commission’s timeline was realistic.'},
+  missed:{id:'iiUv2WQKBjo',title:'The Shot That Missed',desc:'An in-depth look at the first shot that missed. Didn’t the first bullet get deflected by a branch?',
+    warn:'Talks about the shots.',
+    alt:'Investigators think one of the three shots missed the car. This video looks at which shot it was, and whether a tree branch could have changed the bullet’s path.'},
+  recreate:{id:'PfSXkfV_mhA',title:'Magic Bullet computer recreation',desc:'A computer recreation of the single-bullet path. Watch it, then judge it yourself.',
+    warn:'Talks about the shots and wounds.',
+    alt:'A 3D animation puts both men in their seats and traces a straight line from the sixth-floor window to see whether one bullet could have hit both.'},
+  umbrella:{id:'yznRGS9f-jI',title:'Who was the Umbrella Man?',desc:'Now you can find out.',
+    warn:'Contains footage from the day of the shooting.',
+    alt:'The Umbrella Man was identified in 1978. Read the fact-check for the short version.'}
+};
+
+/* ===== Routes ===== */
+var ROUTES = [
+{
+ id:'bullet', title:'The Magic Bullet', hook:'One bullet, about seven wounds, two men. Is that possible?',
+ brief:'The Warren Commission said that one bullet passed through President Kennedy and then wounded Governor Connally, who sat in front of him. Critics nicknamed it the "magic bullet" because it seems too good to be true.',
+ claims:[
+  {t:'The bullet is too clean.',
+   d:'The bullet (called CE 399) was found at Parkland Hospital. It is bent but still looks almost new.',
+   ev:['A bullet that went through a body and broke a rib and a wrist bone should look wrecked, critics say.','It was found on a stretcher, and the two hospital workers who found it could not say for sure it was the Governor’s.','Army tests with other bullets fired into bone left them more bent.'],
+   src:'Claim from the conspiracy-oriented site 22november1963.org.uk and other critics'},
+  {t:'The bullet would have had to zigzag.',
+   d:'Kennedy and Connally sat in different seats. Critics say one straight bullet could not hit both of them.',
+   ev:['The wound in Kennedy’s back looks lower than the wound in his throat, but the shot came from a high window.','Dallas doctors thought the throat wound looked like a bullet going in, not coming out.'],
+   src:'Claim from critics of the Warren Commission'},
+  {t:'Connally says a different bullet hit him.',
+   d:'Governor Connally always said he heard one shot, then felt a second shot hit him.',
+   ev:['His wife, Nellie, sat beside him and agreed with his story.','He was there, and he never changed his mind.'],
+   src:'Claim based on eyewitness statements from John and Nellie Connally'},
+  {t:'The film timing does not fit.',
+   d:'In the Zapruder film, Kennedy seems to react to a hit at about frame 225. Connally does not seem to react until about frame 238. That is about three-quarters of a second later.',
+   ev:['If one bullet hit both men, critics say they should react at the same time.','The film runs at about 18 frames per second, so 13 frames is a noticeable gap.'],
+   src:'Claim from critics who studied the Zapruder film'}
+ ],
+ vids:['revisited'],
+ srcQ:['Which of these claims comes from an eyewitness memory, and which comes from a measurement or test? Which kind is easier to double-check?','Who is making the claim that the bullet "should" look more damaged? What would you need to know about that person or test?'],
+ reveal:{
+  items:[
+   {s:'The bullet is flattened, not clean, and nobody can say for sure how damaged it "should" be.',
+    b:'CE 399 is a full-metal-jacket bullet, a military style round made not to break apart. These bullets often stay in one piece even after hitting bone. It did lose a little lead, and tiny fragments were left in Connally’s wrist. Tests with other bullets do not all agree. The paper trail of who handled the bullet is weak, which is a real problem. But no one has found proof that it was planted.'},
+   {s:'The bullet did not zigzag. The men were not sitting where the simple diagrams make it look.',
+    b:'Connally sat in a jump seat that was lower than Kennedy’s and a few inches to the left. Kennedy was also leaning forward a bit. When the real seat positions are used, a straight line from the sixth-floor window passes through both men. This has been shown in reconstructions, including computer animations. The exact height of the back wound is argued about because the autopsy did not measure it carefully. Medical panels that studied the photos and X-rays concluded the bullet entered high on the back and exited the throat.'},
+   {s:'Connally’s memory is one of the strongest arguments against the theory, and it is still debated.',
+    b:'Memories of a frightening event are often wrong about exact timing and order. But Connally was there, and he never changed his story. That is why the argument continues. Some Warren Commission members, including Senator Richard Russell, doubted the theory at first. The House committee’s own experts looked again in 1978 and also judged that one bullet could have hit both men.'},
+   {s:'A delayed reaction is possible, and the film is hard to read.',
+    b:'Kennedy goes behind a road sign in the film for part of this stretch, so we cannot see exactly when he was hit. Some experts think Connally was hit earlier than frame 238 and simply showed it later. Human reactions to being shot are not always instant. Experts still disagree about the exact frame for each man.'}
+  ],
+  vids:['recreate','missed'],
+  open:['Connally’s memory says one thing and expert reconstructions say another. When eyewitness memory and expert reconstruction disagree, which would you trust more, and why?','A theory that needs several things to line up perfectly can feel unlikely. Is "unlikely" the same as "impossible"? What test could settle it?'],
+  links:[{t:'Warren Commission Report (National Archives)',u:'https://www.archives.gov/research/jfk/warren-commission-report/letter.html'},{t:'House Select Committee on Assassinations report (National Archives)',u:'https://www.archives.gov/research/jfk/select-committee-report'}]
+ }
+},
+{
+ id:'knoll', title:'The Grassy Knoll', hook:'Did some of the shots come from the front?',
+ brief:'The "grassy knoll" is a small hill in front of and to the right of the President’s car. Some people say a second gunman fired from there. This route looks at witnesses, the film, a police radio recording, and a mystery woman with a camera.',
+ claims:[
+  {t:'Many witnesses heard shots from the knoll.',
+   d:'About 40 people said they heard shots, saw smoke, or smelled gunpowder near the grassy knoll.',
+   ev:['Around 600 people were in Dealey Plaza, but only about 200 gave official statements.','The other 400 or so, some very close to the car, were never formally questioned.'],
+   src:'Claim from the conspiracy-oriented site 22november1963.org.uk'},
+  {t:'The President’s head snapped back, so the shot came from the front.',
+   d:'In the Zapruder film, Kennedy’s head and body move backward and to the left at the fatal shot.',
+   ev:['If you are hit from behind, critics ask, shouldn’t you fall forward?','You can see the movement in the Zapruder film (the clip is graphic, so watching it is optional).'],
+   src:'Claim from critics who studied the Zapruder film'},
+  {t:'A police radio recording caught a fourth shot.',
+   d:'A motorcycle officer’s microphone was stuck on, so the Dallas police recorded sounds from Dealey Plaza. In 1979 experts hired by Congress said some of those sounds matched a gunshot from the knoll.',
+   ev:['They said they were 95 percent sure of it.','The House committee that investigated used this as a main reason to say there was probably a conspiracy.'],
+   src:'Claim from the House Select Committee on Assassinations, 1979 (a government committee, not a conspiracy site)'},
+  {t:'The Babushka Lady’s film is missing.',
+   d:'A woman in a headscarf stood near the car and seemed to be filming. She never came forward, and no film from her has been found.',
+   ev:['She appears in several other films taken that day.','Some say the government took her film.'],
+   src:'Claim based on photos and films of Dealey Plaza'}
+ ],
+ vids:['babushka','k4'],
+ srcQ:['One of these claims comes from a government committee, not a conspiracy site. Does that make it more trustworthy? What else would you want to know?','Which claims here can you check with a film or recording, and which depend on someone’s memory or ears?'],
+ reveal:{
+  items:[
+   {s:'Witness memories were mixed, and Dealey Plaza is full of echoes.',
+    b:'Of the witnesses asked where the shots came from, a small majority pointed to the Book Depository. Others pointed to the knoll, and many were not sure. The buildings around the plaza bounce sound around, so a shot can seem to come from somewhere else. No rifle, shell, or bullet was ever found at the knoll. Three shells and a rifle were found on the sixth floor of the Depository.'},
+   {s:'A bullet from behind can still push the head back, and the film shows more than one movement.',
+    b:'Looking frame by frame, the head moves slightly forward first, then snaps back. Scientists have offered explanations, including the nerves and muscles tightening and material blowing out the front of the skull. Not all scientists agree on which explanation is best. The X-rays and photos were studied by several expert panels, including nine medical experts for the House committee. They agreed the fatal bullet entered the back of the head and exited toward the front.'},
+   {s:'A later review by top scientists said the "shot" sounds were recorded about a minute after the shooting.',
+    b:'In 1982 a National Academy of Sciences panel studied the recording again. It found the sounds were recorded about a minute after the President was shot, so they could not be the shots in Dealey Plaza. Some researchers have defended the original 1979 analysis. Other scientists re-checked and supported the 1982 panel again in 2004. Most experts now do not accept the acoustic evidence, but a few still do.'},
+   {s:'She was never identified, so her film is a mystery, not a clue.',
+    b:'A woman named Beverly Oliver said in 1970 that she was the Babushka Lady. Her story has problems. She was 17 in 1963, but the woman in the films looks older. The camera she described was not sold until later. And people who stood near the Babushka Lady did not remember Oliver. No film has ever been found, so no one knows what, if anything, it would show. A missing piece of evidence cannot prove anything either way.'}
+  ],
+  vids:[],
+  open:['The 1979 House committee and the 1982 science panel disagreed. What should you do when experts disagree?','If you hear a loud bang in a place with big buildings around it, can you tell where it came from? How could you test that?'],
+  links:[{t:'National Academy of Sciences report on the acoustic evidence',u:'https://www.nap.edu/catalog/10264.html'},{t:'ABC News: Expert discounts "second gunman" theory',u:'https://abcnews.go.com/WNT/story?id=131461'}]
+ }
+},
+{
+ id:'umbrella', title:'The Umbrella Man', hook:'Why would someone open an umbrella on a sunny day?',
+ brief:'In the films, a man stands near the street holding a black umbrella as the President’s car goes by. The sky is clear. For years, people wondered whether he was part of the plot.',
+ claims:[
+  {t:'The umbrella was a signal.',
+   d:'A man stood on the curb with an open black umbrella on a sunny day. Some people said he used it to signal the shooters.',
+   ev:['In some films he raises the umbrella high as the car passes.','There was no rain and no reason for an umbrella.'],
+   src:'Claim from conspiracy researchers in the 1960s and 1970s'},
+  {t:'The umbrella was a weapon.',
+   d:'A few writers said the umbrella could fire a tiny dart that caused the throat wound.',
+   ev:['The man stood very close to the car.','Some doctors thought the throat wound looked like something small went in from the front.'],
+   src:'Claim from some conspiracy writers'},
+  {t:'A second man was working with him.',
+   d:'A man sitting near the Umbrella Man seemed to raise a fist and speak into something. Some said it was a radio.',
+   ev:['The film is blurry, but some people say they can see it.','No one has ever said for sure who this second man was.'],
+   src:'Claim based on photos and films'},
+  {t:'He stayed unknown for 15 years.',
+   d:'No one knew who the Umbrella Man was until 1978, when a man said it was him.',
+   ev:['Investigators asked the public for help to find him.','Why, critics asked, did it take so long?'],
+   src:'Claim based on government investigators’ records'}
+ ],
+ vids:[],
+ srcQ:['Which of these claims is a guess about what someone was thinking? Which claim is something you can actually see in a photo or film?','If a stranger did something odd, what are three harmless explanations you could think of? Write one for the umbrella.'],
+ reveal:{
+  items:[
+   {s:'It was a protest, a strange one.',
+    b:'In 1978 a man named Louie Steven Witt told Congress’s investigators he was the Umbrella Man. He said he brought the umbrella to heckle Kennedy. The reason: JFK’s father, Joseph Kennedy, had supported British leader Neville Chamberlain, who tried to make peace with Hitler before World War II. Chamberlain was famous for carrying a black umbrella, and the umbrella became a symbol of that peace deal. Witt still had the umbrella and brought it to the hearing. After his testimony, most of the suspicion ended.'},
+   {s:'A dart umbrella does not match the facts.',
+    b:'Investigators found no dart. The umbrella Witt brought to the hearing was an ordinary one. The wounds were described by doctors and examined by medical panels as bullet wounds.'},
+   {s:'This one is still unidentified, and that is okay.',
+    b:'The man near Witt has never been named for certain. Thousands of people were at the motorcade. No one has found evidence that the two men knew each other or worked together. Blurry film cannot tell us what the man was doing with his hand.'},
+   {s:'Most people never realized anyone was looking for him.',
+    b:'Witt said he did not know people were wondering who the Umbrella Man was until investigators asked the public for help. A few researchers still find his story hard to believe. But it matches real history, and so far no evidence has contradicted it. The lesson: a strange detail may look suspicious until you learn the missing piece.'}
+  ],
+  vids:['umbrella'],
+  open:['If you hadn’t heard Witt’s explanation, how would you have decided the umbrella was suspicious or harmless?','Why do strange details feel like clues? What does your brain do when something doesn’t make sense?'],
+  links:[{t:'Smithsonian Magazine: What does the Zapruder film really tell us?',u:'https://www.smithsonianmag.com/history/what-does-the-zapruder-film-really-tell-us-14194/'},{t:'History.com: JFK assassination and the grassy knoll theory',u:'https://www.history.com/news/jfk-assassination-grassy-knoll-theory-debunked'}]
+ }
+},
+{
+ id:'patsy', title:'Oswald the Patsy', hook:'"I’m just a patsy." Was Lee Harvey Oswald set up?',
+ brief:'Oswald told reporters he was a patsy, someone who takes the blame for others. Was he framed? This route looks at his alibi, his shooting skills, a paper bag, and a trip to Mexico City.',
+ claims:[
+  {t:'He had an alibi.',
+   d:'Oswald said he was eating lunch on the first floor when the shots were fired.',
+   ev:['Several coworkers said they saw him on the lower floors around noon.','His long questioning by police was never recorded, so no one has an exact record of what he said.'],
+   src:'Claim from the conspiracy-oriented site 22november1963.org.uk'},
+  {t:'He was not a good enough shooter.',
+   d:'Oswald left the Marines years before. Critics say the rifle was cheap and hard to use, and three shots in a few seconds was too hard.',
+   ev:['A paraffin test of his face found no gunpowder.','Some of the Army’s own marksmen had trouble with the rifle’s scope.'],
+   src:'Claim from critics of the Warren Commission'},
+  {t:'The rifle and the paper bag do not fit.',
+   d:'A coworker said Oswald carried a small bag that morning. It was too short to hold a rifle.',
+   ev:['The coworker said it was about two feet long. The bag found on the sixth floor was about 38 inches.','Oswald said the bag held his lunch.'],
+   src:'Claim based on witness statements'},
+  {t:'Someone pretended to be Oswald in Mexico City.',
+   d:'FBI director J. Edgar Hoover told President Johnson that a voice recording and a photo from Mexico City did not match Oswald.',
+   ev:['It shows someone may have been using Oswald’s name before the shooting.','The recording and photos are lost or hard to find.'],
+   src:'Claim based on FBI and CIA documents, described by 22november1963.org.uk'}
+ ],
+ vids:[],
+ srcQ:['Which of these claims depends on a recording, photo, or document, and which depends on someone’s memory?','Oswald said "I’m a patsy." Is a person’s own claim of innocence evidence? Why or why not?'],
+ reveal:{
+  items:[
+   {s:'The alibi has holes, and the timeline is the key.',
+    b:'The shots were at about 12:30. Coworkers who saw him downstairs saw him earlier, around noon, so they cannot show where he was at 12:30. Oswald left work soon after the shots, went to his rooming house, and was arrested about 80 minutes later in a movie theater with a revolver. Officer J.D. Tippit had been shot about 45 minutes after Kennedy, and the Warren Commission and the House committee both concluded Oswald killed him. Police never recorded the questioning. That was a real failure, and it makes it harder to know exactly what he said.'},
+   {s:'He was trained, and tests suggest the shots were possible. Experts still argue about how hard they were.',
+    b:'Oswald was a Marine. In 1956 he qualified as a "sharpshooter," a middle rating, and in 1959 he scored lower. The shots were from about 60 to 90 yards at a slow-moving car. Test shooters have used the same kind of rifle: some matched the speed and accuracy, and some struggled. You can watch the CBS test and decide. Paraffin tests turned out to be unreliable. They can give false positives and false negatives, so courts no longer trust them.'},
+   {s:'Witnesses did disagree about the bag, but other evidence points to Oswald.',
+    b:'Records show the rifle was mail-ordered to Oswald’s post office box under the name "A. Hidell," a name he also used on other documents. The FBI found his fingerprint and palm print on the paper bag. His prints were also on boxes near the window, though he worked there, so that does not prove much by itself. A memory of a bag glimpsed from across a parking lot can easily be off by several inches.'},
+   {s:'Records show Oswald made the trip, but the CIA’s handling of the evidence was messy.',
+    b:'Later reviews found that the photo the CIA first said was Oswald was actually a different man, and the recording was not saved. Most researchers think the real Oswald made the trip, and he applied for a visa at the Cuban consulate. But the missing tape and the confusing paperwork are why people still ask what the CIA knew. The House committee said the CIA was "deficient in its collection and sharing of information" before and after the assassination.'}
+  ],
+  vids:['cbs'],
+  open:['If someone were framed, which pieces of evidence would be hardest to fake? Which would be easiest?','A missing recording can feel suspicious. Does a missing piece of evidence help a theory, hurt it, or neither?'],
+  links:[{t:'Warren Commission Report (National Archives)',u:'https://www.archives.gov/research/jfk/warren-commission-report/letter.html'},{t:'House Select Committee on Assassinations report (National Archives)',u:'https://www.archives.gov/research/jfk/select-committee-report'}]
+ }
+},
+{
+ id:'motive', title:'Who Had a Motive?', hook:'Many groups wanted Kennedy gone. Does wanting something mean doing it?',
+ brief:'Some theories do not argue about bullets. They ask who would have wanted the President dead. This route is a suspect board: the Mafia, Cuban exiles and the CIA, Cuba and the Soviet Union, and people inside the U.S. government.',
+ claims:[
+  {t:'The Mafia did it.',
+   d:'Kennedy’s brother, Attorney General Robert Kennedy, went after organized crime. Mobsters had also lost casinos in Cuba.',
+   ev:['Jack Ruby, who shot Oswald, knew some people in organized crime.','Some mob figures were angry at the Kennedys.'],
+   src:'Claim discussed by the conspiracy-oriented site 22november1963.org.uk and many authors'},
+  {t:'Cuban exiles and the CIA did it.',
+   d:'Anti-Castro Cubans were furious after the failed Bay of Pigs invasion in 1961. The CIA had been plotting against Castro.',
+   ev:['Oswald handed out pro-Castro leaflets in New Orleans.','The leaflets had an address linked to anti-Castro groups, so some say he was part of a trick.'],
+   src:'Claim discussed by 22november1963.org.uk and many authors'},
+  {t:'Castro or the Soviets did it.',
+   d:'Oswald once lived in the Soviet Union. He said pro-Castro things and visited Soviet and Cuban offices in Mexico City weeks before the shooting.',
+   ev:['A tip about Cuban payments was later shown to be false.','Some people thought the Soviets or Castro wanted revenge for U.S. plots against Cuba.'],
+   src:'Claim discussed by 22november1963.org.uk and other sources'},
+  {t:'LBJ or the FBI did it.',
+   d:'Vice President Lyndon Johnson became president. J. Edgar Hoover, head of the FBI, disliked the Kennedys.',
+   ev:['Some said Johnson might be dropped from the 1964 ticket.','Hoover was close to the mandatory retirement age and feared a Kennedy reelection.'],
+   src:'Claim discussed by 22november1963.org.uk (which says it finds the motive weak)'}
+ ],
+ vids:[],
+ srcQ:['For each suspect, write the motive in one short sentence. Then ask: does having a motive prove someone did something?','Which of these claims has a document, recording, or witness behind it, and which is just an idea about who benefited?'],
+ reveal:{
+  items:[
+   {s:'Having a motive is not the same as having proof.',
+    b:'In 1979 the House committee concluded that organized crime as a group was not involved. It said it could not rule out that individual members may have been. Ruby had underworld contacts, but he was not a formal member of organized crime.'},
+   {s:'The House committee found no proof the CIA or exile groups planned it, but the CIA did hide things.',
+    b:'The committee concluded that the Secret Service, FBI, and CIA were not involved in the assassination, and that anti-Castro Cuban groups as groups were not involved. It also said the CIA was deficient in collecting and sharing information. And the CIA did keep a real secret from the Warren Commission: it had plotted with mobsters against Castro. Hiding one secret does not prove other claims, but it explains why many people stopped trusting the agency.'},
+   {s:'Both governments were investigated, and the House committee said no.',
+    b:'The House committee concluded that neither the Soviet government nor the Cuban government was involved. The Warren Commission also found no evidence of a plot by either one. Oswald’s contacts with them were real, but contact is not the same as taking orders.'},
+   {s:'No credible evidence has been found, and "who benefits?" is a thinking trap.',
+    b:'Neither the Warren Commission nor the House committee found evidence that Johnson or Hoover were involved. The House committee said the FBI did not adequately investigate whether there was a conspiracy, but it did not say the FBI took part. Almost every death benefits someone. To make a case, you need evidence that connects a person to the act.'}
+  ],
+  vids:[],
+  open:['The CIA hid its Castro plots from the Warren Commission. Does hiding one secret make other theories more believable? Why or why not?','How is "had a reason to do it" different from "did it"? What kind of evidence would connect a suspect to the shooting?'],
+  links:[{t:'House Select Committee on Assassinations report (National Archives)',u:'https://www.archives.gov/research/jfk/select-committee-report'},{t:'History.com: Warren Commission',u:'https://www.history.com/topics/warren-commission'}]
+ }
+},
+{
+ id:'coverup', title:'The Cover-Up', hook:'Was the investigation built to reach one answer before it began?',
+ brief:'This route asks whether officials rushed to calm the public instead of finding the truth. It looks at how the Warren Commission began, what happened to Oswald, when the Zapruder film was shown, and who inside the Commission had doubts.',
+ claims:[
+  {t:'The Warren Commission was set up to calm the public.',
+   d:'Days after the shooting, a top Justice Department official wrote a memo saying the public needed to be satisfied that Oswald was the real assassin and had no partners still free. A few days later the Warren Commission was created.',
+   ev:['The memo is real and can be read online.','Critics say the answer was chosen first, then the evidence was gathered.'],
+   src:'Claim from critics, based on the Katzenbach memo'},
+  {t:'Oswald was silenced before he could go to trial.',
+   d:'Jack Ruby shot Oswald in the Dallas police basement two days later while TV cameras were running.',
+   ev:['That meant no trial and no cross-examination of the evidence.','Police never recorded their questioning of Oswald.'],
+   src:'Claim from critics and based on news reports'},
+  {t:'Evidence was kept hidden for years.',
+   d:'The Zapruder film was bought by LIFE magazine. The public did not see the full film on TV until 1975. Some government records stayed secret for decades.',
+   ev:['Millions of pages were not released until after a 1992 law.','The CIA kept some of its own secrets from investigators.'],
+   src:'Claim from critics, based on the history of the Zapruder film and the National Archives'},
+  {t:'Even people inside the Commission had doubts.',
+   d:'Senator Richard Russell, a Commission member, did not believe the single-bullet theory. A Commission lawyer wrote a memo listing weak spots in a chapter of the report.',
+   ev:['Russell’s objections did not appear in the official record.','The lawyer warned critics would find the same weak spots.'],
+   src:'Claim from critics, based on phone recordings and the Liebeler memo'}
+ ],
+ vids:['zap'],
+ srcQ:['A cover-up is a claim about what people intended. How could you tell the difference between hiding something on purpose and making a mistake?','Which claims here are based on a document anyone can read? Which are based on someone’s guess about a motive?'],
+ reveal:{
+  items:[
+   {s:'The memo is real, and so was the government’s fear of rumors.',
+    b:'The Katzenbach memo was written on November 25, 1963. At the height of the Cold War, officials worried that rumors of a Soviet or Cuban plot could push the country toward war. Wanting to reassure the public is not the same as hiding the truth. But critics say it put pressure on investigators to give a firm answer fast. In 1979 the House committee said the Warren Commission reached its conclusions in good faith but presented them in a way that was too definitive. It also said the investigation into a possible conspiracy was inadequate.'},
+   {s:'Yes, Oswald was killed before any trial, and that was a real loss.',
+    b:'Ruby shot Oswald on November 24, so the evidence was never tested in court. No one has found proof that anyone ordered Ruby to do it (see the Jack Ruby route). A trial would have let lawyers question witnesses and challenge the evidence, which is exactly what the public missed.'},
+   {s:'The film was shown late, but it was not destroyed.',
+    b:'LIFE magazine owned the rights and printed still frames, but did not air the film. The Warren Commission and the FBI both studied copies. Congress passed a law in 1992 that created a board to release millions of pages of records. In 2025 the National Archives released about 80,000 more pages, and historians are still reading them. A slow release makes people suspicious, but releasing something late is not the same as hiding a murder.'},
+   {s:'Disagreement inside the Commission was real, and it shows the work was not perfect.',
+    b:'Senator Russell’s doubts about the single-bullet theory were not recorded in the official minutes. A Commission lawyer, Wesley Liebeler, wrote a memo pointing out weak spots in a chapter of the report. These facts show human disagreement, rushed work, and mistakes. They do not by themselves prove a plot. A cover-up claims intent, and intent is much harder to prove than error.'}
+  ],
+  vids:[],
+  open:['How can you tell the difference between hiding a murder and hiding embarrassing secrets, like the CIA hiding its Castro plots?','Why might a government release records slowly? Name one good reason and one bad reason.'],
+  links:[{t:'Warren Commission Report (National Archives)',u:'https://www.archives.gov/research/jfk/warren-commission-report/letter.html'},{t:'House Select Committee on Assassinations report (National Archives)',u:'https://www.archives.gov/research/jfk/select-committee-report'}]
+ }
+},
+{
+ id:'doctors', title:'The Doctors vs. the Autopsy', hook:'The doctors who tried to save Kennedy and the doctors who examined his body seemed to disagree.',
+ note:'This route talks about the President’s injuries in a medical way. You can choose a different route if you would rather not.',
+ brief:'Doctors at Parkland Hospital in Dallas treated Kennedy for a few minutes. That same evening, military doctors in Maryland did the autopsy. Their descriptions did not always match. Some people say that proves a second shooter or a cover-up.',
+ claims:[
+  {t:'The throat wound looked like a bullet going in.',
+   d:'At a press conference an hour after Kennedy died, Dr. Malcolm Perry described a small wound in the neck. He said it looked like a bullet entering from the front.',
+   ev:['A shot from the front means a shooter in front of the car.','The Warren Commission said it was an exit wound from a bullet that came from behind.'],
+   src:'Claim from critics, based on the Parkland press conference'},
+  {t:'The head wound was at the back.',
+   d:'Several Dallas doctors described a large wound at the back of the head. Critics say that means the shot hit from the front.',
+   ev:['The autopsy photos show it differently.','Critics say the photos and the doctors cannot both be right.'],
+   src:'Claim from critics based on doctors’ statements'},
+  {t:'The autopsy was sloppy.',
+   d:'The autopsy was done by military doctors who had little experience with gunshot wounds. One of them burned his first notes.',
+   ev:['One doctor later said he was told not to examine some wounds more closely.','Some photos were poorly labeled.'],
+   src:'Claim from critics, including testimony by autopsy doctors'},
+  {t:'Someone altered the body before the autopsy.',
+   d:'Because the Dallas and Maryland descriptions differ, one author argued that the wounds were changed in secret.',
+   ev:['The body was moved and out of official hands for hours.','The descriptions of the head wound are different.'],
+   src:'Claim from author David Lifton and others'}
+ ],
+ vids:['duke'],
+ srcQ:['The Dallas doctors had a few minutes and were trying to save a life. The autopsy doctors had hours and the whole body. Who had the better chance to see everything, and why?','Which of these claims describes a fact (something seen) and which describes a conclusion (what someone thinks it means)?'],
+ reveal:{
+  items:[
+   {s:'A tracheotomy cut through the throat wound, changing how it looked.',
+    b:'Dallas doctors cut through the neck wound to insert a breathing tube in a rush to save his life. That changed its shape. Dr. Perry said at the press conference it looked like an entrance wound and also said he could not be sure. The Dallas doctors never turned the body over, so they did not see the back wound. The autopsy doctors, who saw the whole body, said the throat wound was where a bullet that entered the back came out. Later medical panels agreed.'},
+   {s:'The X-rays and photos show the bullet entering the back of the head.',
+    b:'Several expert panels studied the photos and X-rays: the Clark Panel in 1968, the Rockefeller Commission in 1975, and nine medical experts for the House committee in 1978. They agreed the fatal bullet entered the rear of the head and exited toward the front. The Dallas doctors saw the wound briefly, under stress, with the scalp moved. Some people still prefer the witnesses to the photos.'},
+   {s:'Yes. The autopsy had real flaws, but a flawed autopsy is not proof of a plot.',
+    b:'The autopsy was done by doctors with limited experience in gunshot wounds, and some notes were burned. Even so, the photos and X-rays later let expert panels reach the same main conclusions. A mistake in a report is a reason to double-check it. It is not by itself a reason to reject all of it.'},
+   {s:'No evidence the body was changed, and the plan would be almost impossible.',
+    b:'The theory would need many people to secretly alter a body in a few hours and keep it secret for decades. Reviewers found no sign of alteration. Even 22november1963.org.uk, a conspiracy-friendly site, calls this idea irrational.'}
+  ],
+  vids:[],
+  open:['The Dallas doctors and the autopsy doctors saw different things at different times. Whose observation should count more, and why?','Does a mistake in an autopsy mean its main conclusions are wrong? How do you decide how much one error matters?'],
+  links:[{t:'House Select Committee on Assassinations report (National Archives)',u:'https://www.archives.gov/research/jfk/select-committee-report'},{t:'Smithsonian Magazine: What does the Zapruder film really tell us?',u:'https://www.smithsonianmag.com/history/what-does-the-zapruder-film-really-tell-us-14194/'}]
+ }
+},
+{
+ id:'ruby', title:'Jack Ruby and the Mystery Men', hook:'Who was Jack Ruby, and who were the unknown men in the photos?',
+ brief:'Two days after the shooting, a Dallas nightclub owner named Jack Ruby shot Oswald on live TV. Around the same time, photos showed unknown men near Dealey Plaza, and there were stories of an earlier plot in Chicago. This route asks if these pieces connect.',
+ claims:[
+  {t:'Ruby silenced Oswald on purpose.',
+   d:'Ruby owned a Dallas nightclub and knew some people in organized crime. He walked into the police basement and shot Oswald on live TV.',
+   ev:['Oswald could no longer talk or be put on trial.','Ruby was convicted in 1964, but the conviction was overturned, and he died in 1967 before a new trial.'],
+   src:'Claim from critics of the Warren Commission'},
+  {t:'He had help getting in.',
+   d:'The police basement was supposed to be guarded. Some people say Ruby could not have walked in without help.',
+   ev:['The transfer of Oswald was delayed that morning.','Reports differ about how Ruby entered.'],
+   src:'Claim from critics and some witnesses'},
+  {t:'The Three Tramps were hidden assassins.',
+   d:'Photos show three men escorted by police near Dealey Plaza. Some said they were assassins in disguise.',
+   ev:['People suggested they were famous spies, like E. Howard Hunt and Frank Sturgis.','The men were dirty and their clothes looked odd.'],
+   src:'Claim from conspiracy researchers since the 1960s'},
+  {t:'There was a similar plot in Chicago.',
+   d:'A few weeks earlier, the FBI got a tip that armed men might attack Kennedy in Chicago on November 2. The trip was canceled.',
+   ev:['Two men were detained, and another man, Thomas Vallee, was arrested.','A Secret Service agent, Abraham Bolden, said it was covered up.'],
+   src:'Claim from the conspiracy-oriented site 22november1963.org.uk'}
+ ],
+ vids:[],
+ srcQ:['"We don’t know who they are" is different from "they are suspicious." Which claims here confuse the two?','Two events can look alike without being connected. Can you think of a time when two things happened together by coincidence?'],
+ reveal:{
+  items:[
+   {s:'Ruby had underworld contacts, but no proof he was sent.',
+    b:'Ruby told investigators he acted out of anger and to spare Jacqueline Kennedy a trial. The Warren Commission found no evidence linking Ruby to Oswald or to a plot. The House committee said Ruby had many underworld contacts but was not a formal member of organized crime, and that the FBI’s investigation of a possible conspiracy was seriously flawed. It did not find proof that Ruby was part of a plot.'},
+   {s:'Police mistakes are well documented. How Ruby got in is still argued.',
+    b:'The Warren Commission thought Ruby came down the Main Street ramp. The House committee doubted that route. Everyone agrees the police were careless that morning. Reports differ on the details, and carelessness is not the same as a plan.'},
+   {s:'The "tramps" were identified in 1992.',
+    b:'Arrest records released in 1992 named the three men as John Gedney, Harold Doyle, and Gus Abrams. Gedney and Doyle confirmed it was them. They were questioned and released. The suggested famous names did not hold up, and the House committee found most of those claims unfounded. The photos stayed a mystery only because the records had gone missing.'},
+   {s:'A threat was reported and the trip was canceled, but nothing connects it to Dallas.',
+    b:'The Chicago threat is documented. Two men were detained and released, and no weapons were recorded. Agent Abraham Bolden said it was covered up. He was later convicted of bribery, and the House committee found his account "of questionable authenticity." The similarities with Dallas are interesting, but similarities are not proof of a link.'}
+  ],
+  vids:[],
+  open:['If you see a photo of unknown people, how is "we don’t know who they are" different from "they are suspicious"?','Why do patterns between two events feel meaningful even when they could be coincidence?'],
+  links:[{t:'Warren Commission Report (National Archives)',u:'https://www.archives.gov/research/jfk/warren-commission-report/letter.html'},{t:'House Select Committee on Assassinations report (National Archives)',u:'https://www.archives.gov/research/jfk/select-committee-report'}]
+ }
+}
+];
+
+var TRICKS = [
+ 'It had a photo, film, or document',
+ 'It used expert names or official-sounding words',
+ 'It had lots of specific details (numbers, times, names)',
+ 'It was a mystery nobody could explain',
+ 'It made an agency or leader look secretive or dishonest',
+ 'It fit a story I already believed',
+ 'Lots of people believe it',
+ 'It sounded logical, step by step'
+];
+
+var TRAPS = [
+ {t:'Unknown is not suspicious',p:'Not knowing who someone is, or what they were doing, is not evidence of a plot. The Umbrella Man looked suspicious until someone explained.'},
+ {t:'Motive is not proof',p:'Many people can have a reason to do something. You need evidence that connects one of them to the act.'},
+ {t:'Pattern spotting',p:'Our brains link events that look alike. Real links need evidence. Coincidences happen.'},
+ {t:'One flaw is not the whole case',p:'If one part of an official report is weak, check the other parts. A mistake in one place does not make everything false.'},
+ {t:'Official sources can be wrong too',p:'Governments and committees make mistakes, and sometimes hide things. Being official does not make a claim true, and being against the government does not either.'},
+ {t:'Missing evidence proves nothing',p:'A lost film or tape can make a story feel mysterious, but nobody knows what is on it. Missing evidence cannot support a theory or knock it down.'}
+];
+
+/* ===== State ===== */
+var state = {
+  view:'brief', routeId:null, chosen:[], done:{}, route:{},
+  name:'', period:'', reflect:{most:'',need:'',tricks:[]}, unlocked:false, final:'', shown:{}, altOpen:{}
+};
+function rs(id){
+  if(!state.route[id]) state.route[id]={ratings:{},whys:{},src:{},conf:5,confSet:false,after:5,afterSet:false,changed:''};
+  return state.route[id];
+}
+function routeById(id){ for(var i=0;i<ROUTES.length;i++){ if(ROUTES[i].id===id) return ROUTES[i]; } return null; }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function doneCount(){ var n=0; for(var k in state.done){ if(state.done[k]) n++; } return n; }
+
+
+/* ===== Photos (hand-drawn, aged look) ===== */
+var PH={bg:'#d8c79d',bg2:'#bfa978',dk:'#3a2f1c',md:'#7b6843',lt:'#efe3c4',red:'#a3302b'};
+var PHOTO = {
+  depository:{cap:'Dallas, Texas',alt:'Illustration of a tall brick office building with rows of windows'},
+  bullet:{cap:'Exhibit A: trace the path',alt:'Illustration of a magnifying glass over a dotted path'},
+  knoll:{cap:'Grassy knoll, with fence',alt:'Illustration of a grassy hill with a picket fence and a tree'},
+  umbrella:{cap:'Sunny day. Why the umbrella?',alt:'Illustration of a black umbrella under a bright sun'},
+  patsy:{cap:'Who is behind the glass?',alt:'Illustration of a silhouette in front of a height chart with a question mark'},
+  motive:{cap:'The suspect board',alt:'Illustration of a corkboard with three papers connected by red string'},
+  coverup:{cap:'Read between the lines',alt:'Illustration of a document with black redaction bars'},
+  doctors:{cap:'Two sets of notes',alt:'Illustration of a clipboard with a heartbeat line'},
+  ruby:{cap:'Three men, no names',alt:'Illustration of three silhouettes wearing hats, each with a question mark'}
+};
+function photoSVG(kind){
+  var o='<svg viewBox="0 0 160 120" role="img" aria-label="'+esc(PHOTO[kind].alt)+'"><rect width="160" height="120" fill="'+PH.bg+'"/>';
+  var i,r,c;
+  if(kind==='depository'){
+    o+='<rect y="94" width="160" height="26" fill="'+PH.bg2+'"/><rect x="38" y="22" width="84" height="74" fill="'+PH.md+'"/><rect x="34" y="15" width="92" height="8" fill="'+PH.dk+'"/>';
+    for(r=0;r<5;r++){for(c=0;c<6;c++){o+='<rect x="'+(44+c*13)+'" y="'+(29+r*12)+'" width="8" height="8" fill="'+PH.lt+'" opacity=".85"/>';}}
+    o+='<rect x="74" y="82" width="12" height="14" fill="'+PH.dk+'"/>';
+  } else if(kind==='bullet'){
+    o+='<circle cx="68" cy="52" r="30" fill="'+PH.lt+'" stroke="'+PH.dk+'" stroke-width="6"/><line x1="90" y1="74" x2="128" y2="108" stroke="'+PH.dk+'" stroke-width="10" stroke-linecap="round"/>'+
+       '<path d="M44 66 Q62 30 92 40" fill="none" stroke="'+PH.red+'" stroke-width="2.5" stroke-dasharray="4 4"/><circle cx="44" cy="66" r="3.5" fill="'+PH.red+'"/><circle cx="92" cy="40" r="3.5" fill="'+PH.red+'"/>';
+  } else if(kind==='knoll'){
+    o+='<path d="M0 98 Q50 46 108 68 T160 80 L160 120 L0 120 Z" fill="#8e8a58"/>';
+    for(i=0;i<8;i++){o+='<rect x="'+(22+i*9)+'" y="'+(62+(i<4?-i*1.5:-6+(i-4)*1.5))+'" width="4" height="15" fill="'+PH.lt+'"/>';}
+    o+='<rect x="18" y="68" width="76" height="2.5" fill="'+PH.lt+'"/><rect x="128" y="50" width="6" height="30" fill="'+PH.dk+'"/><circle cx="131" cy="42" r="15" fill="#6d7448"/>';
+  } else if(kind==='umbrella'){
+    o+='<circle cx="132" cy="24" r="12" fill="#f2e4b4"/><path d="M28 64 Q80 6 132 64 Q116 54 106 64 Q93 52 80 64 Q67 52 54 64 Q44 54 28 64 Z" fill="'+PH.dk+'"/>'+
+       '<path d="M80 64 L80 98 Q80 108 70 106" fill="none" stroke="'+PH.dk+'" stroke-width="4" stroke-linecap="round"/><rect y="106" width="160" height="14" fill="'+PH.bg2+'"/>';
+  } else if(kind==='patsy'){
+    for(i=0;i<6;i++){o+='<line x1="10" x2="150" y1="'+(14+i*18)+'" y2="'+(14+i*18)+'" stroke="'+PH.md+'" stroke-width="1"/>';}
+    o+='<circle cx="80" cy="46" r="18" fill="'+PH.dk+'"/><path d="M42 120 Q44 78 80 74 Q116 78 118 120Z" fill="'+PH.dk+'"/>'+
+       '<text x="80" y="55" text-anchor="middle" font-size="24" fill="'+PH.lt+'" font-family="Special Elite, monospace">?</text>';
+  } else if(kind==='motive'){
+    o+='<rect width="160" height="120" fill="#b3814a"/>';
+    o+='<rect x="12" y="16" width="36" height="28" fill="'+PH.lt+'" transform="rotate(-4 30 30)"/><rect x="104" y="20" width="42" height="30" fill="'+PH.lt+'" transform="rotate(3 125 35)"/><rect x="56" y="68" width="42" height="32" fill="'+PH.lt+'" transform="rotate(-2 77 84)"/>';
+    o+='<path d="M30 18 L125 22 L77 70 Z" fill="none" stroke="'+PH.red+'" stroke-width="2"/>';
+    [[30,18],[125,22],[77,70]].forEach(function(p){o+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4.5" fill="'+PH.red+'" stroke="'+PH.dk+'" stroke-width="1"/>';});
+    [[20,30],[112,36],[64,84]].forEach(function(p){o+='<rect x="'+p[0]+'" y="'+p[1]+'" width="24" height="2.5" fill="'+PH.md+'"/><rect x="'+p[0]+'" y="'+(p[1]+7)+'" width="16" height="2.5" fill="'+PH.md+'"/>';});
+  } else if(kind==='coverup'){
+    o+='<rect x="34" y="8" width="92" height="104" fill="'+PH.lt+'" stroke="'+PH.md+'" stroke-width="1.5"/>';
+    for(i=0;i<7;i++){
+      if(i%2===0){o+='<rect x="44" y="'+(28+i*11)+'" width="'+(52+(i*7)%24)+'" height="8" fill="'+PH.dk+'"/>';}
+      else{o+='<rect x="44" y="'+(31+i*11)+'" width="'+(60-(i*5)%20)+'" height="2" fill="'+PH.md+'"/>';}
+    }
+    o+='<text x="80" y="22" text-anchor="middle" font-size="10" fill="'+PH.red+'" font-family="Special Elite, monospace">CLASSIFIED</text>';
+  } else if(kind==='doctors'){
+    o+='<rect x="38" y="12" width="84" height="100" fill="'+PH.md+'"/><rect x="46" y="24" width="68" height="80" fill="'+PH.lt+'"/><rect x="64" y="6" width="32" height="14" rx="3" fill="'+PH.dk+'"/>'+
+       '<path d="M50 70 L64 70 L70 50 L78 90 L86 60 L92 70 L110 70" fill="none" stroke="'+PH.red+'" stroke-width="2.5" stroke-linejoin="round"/>'+
+       '<rect x="52" y="32" width="40" height="3" fill="'+PH.md+'"/><rect x="52" y="39" width="28" height="3" fill="'+PH.md+'"/>';
+  } else if(kind==='ruby'){
+    [32,80,128].forEach(function(x){
+      o+='<path d="M'+(x-20)+' 120 Q'+(x-17)+' 84 '+x+' 80 Q'+(x+17)+' 84 '+(x+20)+' 120Z" fill="'+PH.dk+'"/><circle cx="'+x+'" cy="68" r="9" fill="'+PH.dk+'"/>'+
+         '<ellipse cx="'+x+'" cy="60" rx="16" ry="3.5" fill="'+PH.dk+'"/><rect x="'+(x-9)+'" y="48" width="18" height="12" rx="3" fill="'+PH.dk+'"/>'+
+         '<text x="'+x+'" y="40" text-anchor="middle" font-size="16" fill="'+PH.md+'" font-family="Special Elite, monospace">?</text>';
+    });
+  }
+  return o+'</svg>';
+}
+function photoFig(kind,rot,cap){
+  var ph=PHOTO[kind]; if(!ph) return '';
+  return '<figure class="photo" style="--rot:'+(rot||-2)+'deg">'+photoSVG(kind)+'<figcaption>'+esc(cap||ph.cap)+'</figcaption></figure>';
+}
+
+/* ===== Nav ===== */
+var LOCK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
+var TABS = [
+  {v:'brief',n:'1',l:'Start'},
+  {v:'case',n:'2',l:'Case File'},
+  {v:'routes',n:'3',l:'Investigate'},
+  {v:'reflect',n:'4',l:'Reflect'},
+  {v:'factcheck',n:'5',l:'Fact-Check'},
+  {v:'sheet',n:'6',l:'My Answers'}
+];
+function renderNav(){
+  var cur = state.view==='route' ? 'routes' : state.view;
+  var h='';
+  TABS.forEach(function(t){
+    var lock = (t.v==='factcheck' && !state.unlocked) ? ' '+LOCK_SVG : '';
+    h+='<button type="button" data-act="go" data-v="'+t.v+'"'+(cur===t.v?' aria-current="page"':'')+'><span class="num">'+t.n+'</span> '+t.l+lock+'</button>';
+  });
+  document.getElementById('nav').innerHTML=h;
+}
+
+/* ===== Video block ===== */
+function videoBlock(key){
+  var v=V[key]; if(!v) return '';
+  var shown = state.shown[key];
+  var altOpen = state.altOpen[key];
+  var h='<div class="video" id="vid-'+key+'"><h3>'+esc(v.title)+'</h3><p style="margin:0 0 .3em">'+esc(v.desc)+'</p>';
+  h+='<p class="warn"><b>Content notice:</b> '+esc(v.warn)+' You do not have to watch. Choose "Read instead" if you prefer.</p>';
+  if(shown){
+    h+='<div class="vframe"><div class="msg">If you see a blank box, the video is blocked here. Use the YouTube link below.</div><iframe src="https://www.youtube-nocookie.com/embed/'+v.id+'?rel=0" title="'+esc(v.title)+'" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>';
+  } else {
+    h+='<div class="row"><button type="button" class="btn small" data-act="showvid" data-k="'+key+'">Watch here</button><button type="button" class="btn small secondary" data-act="togglealt" data-k="'+key+'">'+(altOpen?'Hide summary':'Read instead')+'</button></div>';
+  }
+  if(altOpen && !shown){ h+='<p class="alt">'+esc(v.alt)+'</p>'; }
+  h+='<p class="vlink"><a href="https://www.youtube.com/watch?v='+v.id+'" target="_blank" rel="noopener">Video not working? Open it on YouTube</a></p></div>';
+  return h;
+}
+
+/* ===== Map ===== */
+function mapSVG(){
+  return '<svg class="map" viewBox="0 0 720 340" role="img" aria-label="Simplified map of Dealey Plaza showing Houston Street, Elm Street, the Texas School Book Depository, the grassy knoll, and the triple underpass">'+
+  '<title>Simplified map of Dealey Plaza (not to scale)</title>'+
+  '<rect x="0" y="0" width="720" height="340" fill="var(--card)"/>'+
+  '<path d="M 40 150 C 200 80, 400 80, 470 120 L 470 170 C 380 150, 220 190, 40 215 Z" fill="var(--ok)" opacity=".25"/>'+
+  '<path d="M 60 250 C 220 215, 380 215, 505 270 L 505 296 L 60 296 Z" fill="var(--ok)" opacity=".18"/>'+
+  '<rect x="510" y="30" width="42" height="300" fill="var(--line)"/>'+
+  '<rect x="20" y="296" width="700" height="26" fill="var(--line)"/>'+
+  '<path d="M 531 160 C 440 158, 350 205, 70 225" fill="none" stroke="var(--line)" stroke-width="30" stroke-linecap="butt"/>'+
+  '<path d="M 640 309 L 531 309 L 531 168 C 440 165, 350 212, 90 228" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="8 6"/>'+
+  '<path d="M 100 227 l 12 -7 l 0 14 z" fill="var(--accent)"/>'+
+  '<rect x="400" y="42" width="106" height="88" fill="var(--soft)" stroke="var(--ink)" stroke-width="2"/>'+
+  '<text x="453" y="82" text-anchor="middle">Texas School</text><text x="453" y="98" text-anchor="middle">Book Depository</text>'+
+  '<circle cx="500" cy="124" r="6" fill="var(--accent)"/>'+
+  '<text x="453" y="34" text-anchor="middle" class="mut">Red dot: 6th-floor window</text>'+
+  '<rect x="572" y="42" width="96" height="74" fill="var(--soft)" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 3"/>'+
+  '<text x="620" y="76" text-anchor="middle" class="mut">Dal-Tex</text><text x="620" y="92" text-anchor="middle" class="mut">building</text>'+
+  '<ellipse cx="270" cy="132" rx="100" ry="24" fill="var(--ok)" opacity=".4" transform="rotate(-6 270 132)"/>'+
+  '<text x="270" y="136" text-anchor="middle" style="font-weight:700">Grassy knoll</text>'+
+  '<path d="M 170 100 L 410 100" stroke="var(--muted)" stroke-width="2" stroke-dasharray="3 3"/><text x="170" y="92" class="mut">picket fence</text>'+
+  '<rect x="30" y="196" width="46" height="56" fill="var(--muted)" opacity=".55"/><text x="24" y="270" class="mut">Triple underpass</text>'+
+  '<text x="300" y="236" text-anchor="middle" transform="rotate(-5 300 236)" style="font-weight:700">Elm Street</text>'+
+  '<text x="150" y="314" class="mut">Main Street</text>'+
+  '<text x="562" y="190" transform="rotate(-90 562 190)" class="mut">Houston Street</text>'+
+  '<text x="545" y="326" text-anchor="end" class="mut">Motorcade path (dashed)</text>'+
+  '<g transform="translate(38,50)"><path d="M0 18 L7 0 L14 18 L7 13 Z" fill="var(--ink)"/><text x="7" y="34" text-anchor="middle">N</text></g>'+
+  '<text x="700" y="22" text-anchor="end" class="mut">Simplified, not to scale</text>'+
+  '</svg>';
+}
+
+/* ===== Views ===== */
+function viewBrief(){
+  return '<section class="card clip stampwrap"><span class="stamp big">Open case file</span><p class="eyebrow">Classroom investigation</p><h1>The Dealey Plaza Files</h1>'+
+  '<p>On November 22, 1963, President John F. Kennedy was killed in Dallas, Texas. Ever since, people have offered theories about what really happened. In this activity you will investigate some of those theories like a detective. Later, you will test them against the evidence.</p>'+
+  '<h2>How it works</h2><ol class="steps">'+
+  '<li><b>Read the Case File.</b> Learn what almost everyone agrees on. (about 5 minutes)</li>'+
+  '<li><b>Choose 2 routes to explore.</b> Each route is a different theory. Read the claims, rate the evidence, and watch the clips. <b>Finished early?</b> Keep going and explore as many bonus routes as you like. (about 15 to 20 minutes per route)</li>'+
+  '<li><b>Reflect.</b> Think about what made the theories feel true.</li>'+
+  '<li><b>Wait for your teacher.</b> The Fact-Check opens when your teacher gives the class the passcode. Then you will find out what the evidence shows.</li>'+
+  '<li><b>Save your answers.</b> Copy them from the My Answers tab.</li></ol>'+
+  '<div class="note"><p><b>Before you start.</b> Everything in the Investigate section is a <b>claim</b>. Some claims are true, some are false, and some are still debated. Your job right now is to look closely at how convincing each one is.</p>'+
+  '<p>This is about a real person’s death. Some videos show or describe the shooting or injuries. You never have to watch. Every video has a "Read instead" option, and you can pick a different route at any time.</p></div>'+
+  '<div class="photos" aria-label="Case photos">'+photoFig('depository',-3)+photoFig('bullet',2,'Examine the evidence')+photoFig('motive',-1.5,'Follow the clues')+'</div>'+
+  '<div class="row"><button class="btn" type="button" data-act="go" data-v="case">Start with the Case File</button></div></section>';
+}
+
+function viewCase(){
+  return '<section class="stack">'+
+  '<div class="card clip"><p class="eyebrow">Step 2</p><h2>The Case File</h2><p>Before the theories, here is what nearly everyone agrees on.</p>'+
+  '<ul>'+
+  '<li>On Friday, November 22, 1963, at about 12:30 p.m., President Kennedy was shot while riding in an open car in a motorcade through Dealey Plaza in Dallas.</li>'+
+  '<li>Texas Governor John Connally, who sat in front of the President, was also wounded.</li>'+
+  '<li>Kennedy was taken to Parkland Memorial Hospital and pronounced dead at about 1:00 p.m.</li>'+
+  '<li>Police arrested Lee Harvey Oswald, who worked at the Texas School Book Depository, at about 1:50 p.m. He told police he had not shot anyone.</li>'+
+  '<li>On November 24, Jack Ruby shot and killed Oswald in the basement of Dallas police headquarters while TV cameras were on. Oswald never went to trial.</li>'+
+  '<li>Several official investigations followed. They agreed on some points and disagreed on others.</li></ul></div>'+
+  '<div class="card clip"><h3>Where it happened</h3>'+mapSVG()+'<p class="handnote">Exhibit: Dealey Plaza, simplified and not to scale.</p></div>'+
+  '<div class="card"><h3>Timeline</h3><ul class="timeline">'+
+  '<li><b>Nov 22, 1963 &middot; about 12:30 p.m.</b>Shots are fired as the motorcade passes the Texas School Book Depository.</li>'+
+  '<li><b>about 1:00 p.m.</b>President Kennedy is pronounced dead at Parkland Hospital.</li>'+
+  '<li><b>about 1:15 p.m.</b>Dallas police officer J.D. Tippit is shot and killed.</li>'+
+  '<li><b>about 1:50 p.m.</b>Oswald is arrested in the Texas Theatre.</li>'+
+  '<li><b>Nov 24</b>Jack Ruby shoots Oswald.</li>'+
+  '<li><b>Nov 29</b>President Johnson creates the Warren Commission to investigate.</li>'+
+  '<li><b>Sept 1964</b>The Warren Commission publishes its report.</li>'+
+  '<li><b>1976 to 1979</b>A House of Representatives committee (the HSCA) investigates again.</li>'+
+  '<li><b>1982</b>The National Academy of Sciences reviews the police radio recording.</li>'+
+  '<li><b>1992</b>Congress passes a law to release government records about the assassination.</li></ul></div>'+
+  '<div class="card"><h3>Words to know</h3><dl class="words">'+
+  '<dt>Warren Commission</dt><dd>The group, led by Chief Justice Earl Warren, that investigated in 1963 and 1964.</dd>'+
+  '<dt>HSCA</dt><dd>The House Select Committee on Assassinations. A congressional investigation from 1976 to 1979.</dd>'+
+  '<dt>Zapruder film</dt><dd>A home movie by Abraham Zapruder that captured the shooting.</dd>'+
+  '<dt>Grassy knoll</dt><dd>A small grassy hill in front of and to the right of the President’s car.</dd>'+
+  '<dt>Texas School Book Depository</dt><dd>The building where Oswald worked and from which the Warren Commission said the shots were fired.</dd>'+
+  '<dt>Claim vs. evidence</dt><dd>A claim is what someone says is true. Evidence is what you can check to see if it is.</dd></dl></div>'+
+  '<div class="card"><h3>Start here: two videos</h3><p>These give you the background. You can watch both, one, or read the summary instead.</p>'+videoBlock('intro')+videoBlock('natgeo')+
+  '<div class="row"><button class="btn" type="button" data-act="go" data-v="routes">Choose your routes</button></div></div></section>';
+}
+
+function routeStatus(id){
+  if(state.done[id]) return '<span class="pill done">Finished</span>';
+  if(state.chosen.indexOf(id)>-1) return '<span class="pill on">In progress</span>';
+  return '<span class="pill">Not started</span>';
+}
+function pickLabel(id){
+  var i=state.chosen.indexOf(id);
+  if(i<0) return '';
+  return i<2 ? '<span class="pill on">Pick '+(i+1)+'</span>' : '<span class="pill bonus">Bonus</span>';
+}
+
+function viewRoutes(){
+  var n=doneCount();
+  var pc = '<div class="progress"><div><strong>Routes finished: '+n+' of 2</strong></div>'+
+    (n>=2 ? '<div>Nice work. Move on to <button type="button" class="btn small" data-act="go" data-v="reflect">Reflect</button> or explore a bonus route below.</div>' :
+            '<div class="muted">Finish 2 routes, then move to Reflect. If you finish early, keep exploring bonus routes.</div>')+'</div>';
+  var h='<section><p class="eyebrow">Step 3</p><h2>Investigate</h2><p>Choose a route. Each one is a different theory. <b>Pick 2.</b> If you finish early, try more.</p>'+pc+'<div class="grid">';
+  ROUTES.forEach(function(r,idx){
+    h+='<div class="route-card"><span class="ftab">File '+(idx+1)+'</span><div class="row" style="gap:6px">'+routeStatus(r.id)+pickLabel(r.id)+'</div>'+
+       '<h3>'+(idx+1)+'. '+esc(r.title)+'</h3><p class="grow muted">'+esc(r.hook)+'</p>'+
+       '<div><button type="button" class="btn small" data-act="open" data-r="'+r.id+'">'+(state.chosen.indexOf(r.id)>-1?(state.done[r.id]?'Review route':'Continue'):'Start this route')+'</button></div></div>';
+  });
+  h+='</div></section>';
+  return h;
+}
+
+function viewRoute(){
+  var r=routeById(state.routeId); if(!r) return viewRoutes();
+  var s=rs(r.id);
+  var h='<section><p><button type="button" class="btn small secondary" data-act="go" data-v="routes">&larr; All routes</button></p>'+
+  '<div class="route-head"><div class="rh-text"><p class="eyebrow">Route '+(ROUTES.indexOf(r)+1)+' of '+ROUTES.length+'</p><h2>'+esc(r.title)+'</h2>'+
+  '<p style="font-size:1.1rem"><b>'+esc(r.hook)+'</b></p></div>'+photoFig(r.id,2.5)+'</div>';
+  if(r.note) h+='<div class="note"><p>'+esc(r.note)+'</p></div>';
+  h+='<div class="card clip"><h3>The theory in brief</h3><p>'+esc(r.brief)+'</p>'+
+     '<p class="muted" style="margin:0">Read each claim card. Decide how convincing it is. You are not deciding if it is true yet. You are judging how strong the evidence looks.</p></div>';
+  h+='<h3>Claim cards</h3>';
+  r.claims.forEach(function(c,i){
+    var cur=s.ratings[i]||'';
+    h+='<div class="claim clip"><span class="stamp">Claim &middot; not yet checked</span><h3>'+esc(c.t)+'</h3><p>'+esc(c.d)+'</p><ul>';
+    c.ev.forEach(function(e){ h+='<li>'+esc(e)+'</li>'; });
+    h+='</ul><p class="source"><b>Where this comes from:</b> '+esc(c.src)+'</p>'+
+    '<fieldset class="rate"><legend>How convincing is this claim?</legend>';
+    [['convincing','Convincing'],['unsure','Not sure'],['weak','Not convincing yet']].forEach(function(o){
+      h+='<label><input type="radio" name="rate-'+r.id+'-'+i+'" value="'+o[0]+'" data-k="rating" data-r="'+r.id+'" data-i="'+i+'"'+(cur===o[0]?' checked':'')+'> '+o[1]+'</label>';
+    });
+    h+='</fieldset><label class="fld" for="why-'+r.id+'-'+i+'">Why? (a few words)</label>'+
+       '<input type="text" id="why-'+r.id+'-'+i+'" data-k="why" data-r="'+r.id+'" data-i="'+i+'" value="'+esc(s.whys[i]||'')+'"></div>';
+  });
+  if(r.vids.length){
+    h+='<h3>Watch</h3>';
+    r.vids.forEach(function(k){ h+=videoBlock(k); });
+  }
+  h+='<div class="card"><h3>Check the source</h3>';
+  r.srcQ.forEach(function(q,i){
+    h+='<div class="q"><label class="fld" for="src-'+r.id+'-'+i+'">'+esc(q)+'</label><textarea id="src-'+r.id+'-'+i+'" data-k="src" data-r="'+r.id+'" data-i="'+i+'">'+esc(s.src[i]||'')+'</textarea></div>';
+  });
+  h+='</div>';
+  h+='<div class="card"><h3>Your confidence</h3><label class="fld" for="conf-'+r.id+'">After exploring this route, how convinced are you that this theory is true? <span class="bignum" id="confout-'+r.id+'">'+s.conf+'</span> / 10</label>'+
+     '<input type="range" id="conf-'+r.id+'" min="0" max="10" step="1" value="'+s.conf+'" data-k="conf" data-r="'+r.id+'">'+
+     '<div class="scale"><span>0 = not at all</span><span>10 = completely</span></div>'+
+     '<p id="finish-msg" class="err" role="status" aria-live="polite"></p>'+
+     '<div class="row"><button type="button" class="btn" data-act="finish" data-r="'+r.id+'">'+(state.done[r.id]?'Route finished (update)':'Finish this route')+'</button></div></div>';
+  h+='</section>';
+  return h;
+}
+
+function viewReflect(){
+  var n=doneCount();
+  var h='<section><p class="eyebrow">Step 4</p><h2>Reflect</h2>';
+  if(n<2) h+='<div class="note"><p>You have finished '+n+' of 2 routes. You can reflect now, but it works best after you finish both.</p></div>';
+  h+='<div class="card"><div class="q"><label class="fld" for="most">Which claim felt the most convincing to you, and why?</label><textarea id="most" data-k="most">'+esc(state.reflect.most)+'</textarea></div>'+
+  '<div class="q"><p class="fld" style="margin-bottom:.4em">What made it feel convincing? (check all that apply)</p><div class="checks">';
+  TRICKS.forEach(function(t,i){
+    h+='<label><input type="checkbox" data-k="trick" value="'+i+'"'+(state.reflect.tricks.indexOf(i)>-1?' checked':'')+'> '+esc(t)+'</label>';
+  });
+  h+='</div></div><div class="q"><label class="fld" for="need">What would you need to see or learn to be sure whether it is true?</label><textarea id="need" data-k="need">'+esc(state.reflect.need)+'</textarea></div>'+
+  '<div class="note"><p>Now wait for your teacher. When the class is ready, your teacher will give you the passcode for the Fact-Check.</p></div>'+
+  '<div class="row"><button type="button" class="btn" data-act="go" data-v="factcheck">Go to the Fact-Check</button></div></div></section>';
+  return h;
+}
+
+function viewLock(){
+  return '<section class="card lock clip stampwrap"><span class="stamp big">Restricted</span><p class="eyebrow">Step 5</p>'+LOCK_SVG+'<h2>The Fact-Check is locked</h2>'+
+  '<p style="margin-left:auto;margin-right:auto">Your teacher will give you the passcode when the class has finished exploring.</p>'+
+  '<div class="stack" style="align-items:center"><label class="fld" for="pass">Passcode</label>'+
+  '<input type="text" id="pass" inputmode="numeric" autocomplete="off" maxlength="12" aria-describedby="passerr">'+
+  '<button type="button" class="btn" data-act="unlock">Unlock</button>'+
+  '<p class="err" id="passerr" role="status" aria-live="polite"></p></div></section>';
+}
+
+function viewFact(){
+  if(!state.unlocked) return viewLock();
+  var order=[];
+  state.chosen.forEach(function(id){ var r=routeById(id); if(r) order.push(r); });
+  ROUTES.forEach(function(r){ if(state.chosen.indexOf(r.id)<0) order.push(r); });
+  var h='<section><div class="stampwrap"><span class="stamp big green">Declassified</span><p class="eyebrow">Step 5</p><h2>The Fact-Check</h2></div>'+
+  '<p>Now you can see what the evidence shows. Start with the routes you explored. Open any route to read each answer, watch the clips, and think about the open questions.</p>'+
+  '<div class="card"><h3>What the official investigations concluded</h3><div class="tablewrap"><table class="cmp"><thead><tr><th>Investigation</th><th>What it concluded</th></tr></thead><tbody>'+
+  '<tr><td>Warren Commission (1964)</td><td>Oswald fired the shots that killed President Kennedy. It found no evidence of a conspiracy.</td></tr>'+
+  '<tr><td>House Select Committee, HSCA (1979)</td><td>Agreed Oswald fired the shots that struck Kennedy. But it also said there was probably a conspiracy, based mostly on the police radio recording. It said the Warren Commission’s conclusions were reached in good faith but stated too firmly, and that the search for a conspiracy was inadequate. It said the Soviet and Cuban governments, the Secret Service, the FBI, and the CIA were not involved.</td></tr>'+
+  '<tr><td>National Academy of Sciences (1982)</td><td>Said the police recording does not support a second gunman. The sounds were recorded about a minute after the shooting.</td></tr>'+
+  '</tbody></table></div><p class="muted" style="margin:.8em 0 0">Notice that official investigations also disagreed with each other. That is a normal part of history.</p></div>';
+  order.forEach(function(r,idx){
+    var s=rs(r.id); var mine=state.chosen.indexOf(r.id)>-1;
+    h+='<details class="fc"'+(idx===0&&mine?' open':'')+'><summary>'+esc(r.title)+(mine?' <span class="pill on">Your route</span>':'')+'</summary><div class="inner">';
+    if(mine && s.confSet) h+='<p class="muted">Before the fact-check you rated your confidence in this theory at '+s.conf+' out of 10.</p>';
+    r.reveal.items.forEach(function(it,i){
+      h+='<div class="answer"><p class="was">Claim: '+esc(r.claims[i].t)+'</p><p class="short">'+esc(it.s)+'</p><p style="margin:0">'+esc(it.b)+'</p></div>';
+    });
+    if(r.reveal.vids.length){
+      h+='<h3 style="margin-top:1em">Watch</h3>';
+      r.reveal.vids.forEach(function(k){ h+=videoBlock(k); });
+    }
+    h+='<div class="openq"><h4>Open questions for you</h4><ul>';
+    r.reveal.open.forEach(function(q){ h+='<li>'+esc(q)+'</li>'; });
+    h+='</ul></div>';
+    h+='<p style="margin:0 0 .4em"><b>Read more:</b></p><ul style="margin:0 0 1em">';
+    r.reveal.links.forEach(function(l){ h+='<li><a href="'+esc(l.u)+'" target="_blank" rel="noopener">'+esc(l.t)+'</a></li>'; });
+    h+='</ul>';
+    if(mine){
+      h+='<div class="card tight"><label class="fld" for="after-'+r.id+'">After the fact-check, how convinced are you that this theory is true? <span class="bignum" id="afterout-'+r.id+'">'+s.after+'</span> / 10</label>'+
+      '<input type="range" id="after-'+r.id+'" min="0" max="10" step="1" value="'+s.after+'" data-k="after" data-r="'+r.id+'">'+
+      '<div class="scale"><span>0 = not at all</span><span>10 = completely</span></div>'+
+      '<div class="q" style="margin-top:.8em"><label class="fld" for="chg-'+r.id+'">What changed your mind, or why did you stay the same?</label><textarea id="chg-'+r.id+'" data-k="changed" data-r="'+r.id+'">'+esc(s.changed)+'</textarea></div></div>';
+    }
+    h+='</div></details>';
+  });
+  h+='<div class="card"><h3>Your thinking toolkit</h3><p>Five questions to ask about any claim:</p><ol class="steps">'+
+  '<li>Who is making this claim, and why?</li><li>What evidence do they show: a document, a film, a test, or just a memory?</li>'+
+  '<li>Can someone independent confirm it?</li><li>What would prove it wrong?</li><li>Is this a clue, or only a mystery?</li></ol>'+
+  '<p>Watch out for these thinking traps:</p><div class="traps">';
+  TRAPS.forEach(function(t){ h+='<div class="trap"><b>'+esc(t.t)+'</b><p>'+esc(t.p)+'</p></div>'; });
+  h+='</div></div><div class="card"><h3>Final thought</h3><label class="fld" for="final">What did you learn about how to judge claims, in this activity or anywhere else?</label><textarea id="final" data-k="final">'+esc(state.final)+'</textarea>'+
+  '<div class="row" style="margin-top:12px"><button type="button" class="btn" data-act="go" data-v="sheet">Go to My Answers</button></div></div></section>';
+  return h;
+}
+
+var RATE_TXT={convincing:'Convincing',unsure:'Not sure',weak:'Not convincing yet'};
+function sheetText(){
+  var L=[];
+  L.push('THE DEALEY PLAZA FILES: MY ANSWERS');
+  L.push('Name: '+(state.name||'__________')+'    Class period: '+(state.period||'____'));
+  L.push('');
+  var ids=state.chosen.slice();
+  if(!ids.length) L.push('(No routes chosen yet.)');
+  ids.forEach(function(id,k){
+    var r=routeById(id); var s=rs(id);
+    L.push('ROUTE '+(k+1)+(k>=2?' (bonus)':'')+': '+r.title+(state.done[id]?' [finished]':' [in progress]'));
+    r.claims.forEach(function(c,i){
+      L.push('  Claim '+(i+1)+': '+c.t);
+      L.push('    My rating: '+(RATE_TXT[s.ratings[i]]||'(not rated)')+(s.whys[i]?' | Why: '+s.whys[i]:''));
+    });
+    r.srcQ.forEach(function(q,i){
+      L.push('  Source check: '+q);
+      L.push('    My answer: '+(s.src[i]||'(blank)'));
+    });
+    L.push('  Confidence after exploring: '+(s.confSet?s.conf+' / 10':'(not set)'));
+    if(state.unlocked){
+      L.push('  Confidence after fact-check: '+(s.afterSet?s.after+' / 10':'(not set)'));
+      if(s.changed) L.push('  What changed my mind: '+s.changed);
+    }
+    L.push('');
+  });
+  L.push('REFLECTION');
+  L.push('Most convincing claim and why: '+(state.reflect.most||'(blank)'));
+  var t=state.reflect.tricks.slice().sort(function(a,b){return a-b;}).map(function(i){return TRICKS[i];});
+  L.push('What made it feel convincing: '+(t.length?t.join('; '):'(none checked)'));
+  L.push('What I would need to see to be sure: '+(state.reflect.need||'(blank)'));
+  if(state.unlocked){
+    L.push('');
+    L.push('FINAL THOUGHT');
+    L.push(state.final||'(blank)');
+  }
+  return L.join('\n');
+}
+
+function viewSheet(){
+  return '<section><p class="eyebrow">Step 6</p><h2>My Answers</h2>'+
+  '<div class="card"><p>Your answers are collected here as you work. Nothing is saved or sent anywhere. Copy them and paste them into your class document, or hand-in as your teacher directs.</p>'+
+  '<div class="row noprint" style="margin-bottom:12px"><div style="flex:1;min-width:200px"><label class="fld" for="sname">Your name</label><input type="text" id="sname" data-k="name" value="'+esc(state.name)+'"></div>'+
+  '<div style="width:140px"><label class="fld" for="speriod">Class period</label><input type="text" id="speriod" data-k="period" value="'+esc(state.period)+'"></div></div>'+
+  '<pre class="sheet" id="sheetpre" tabindex="0">'+esc(sheetText())+'</pre>'+
+  '<div class="row noprint" style="margin-top:12px"><button type="button" class="btn" data-act="copy">Copy my answers</button><span id="copymsg" class="muted" role="status" aria-live="polite"></span></div>'+
+  '<p class="muted noprint" style="margin:.8em 0 0">To print, use your browser’s print command (Ctrl+P or Cmd+P).</p></div></section>';
+}
+
+/* ===== Render ===== */
+function render(){
+  var m=document.getElementById('main'); var h='';
+  switch(state.view){
+    case 'brief': h=viewBrief(); break;
+    case 'case': h=viewCase(); break;
+    case 'routes': h=viewRoutes(); break;
+    case 'route': h=viewRoute(); break;
+    case 'reflect': h=viewReflect(); break;
+    case 'factcheck': h=viewFact(); break;
+    case 'sheet': h=viewSheet(); break;
+    default: h=viewBrief();
+  }
+  m.innerHTML=h; renderNav();
+}
+function go(v){ state.view=v; render(); window.scrollTo(0,0); }
+
+/* ===== Events ===== */
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-act]'); if(!t) return;
+  var act=t.getAttribute('data-act');
+  if(act==='go'){ go(t.getAttribute('data-v')); }
+  else if(act==='open'){
+    var id=t.getAttribute('data-r');
+    if(state.chosen.indexOf(id)<0) state.chosen.push(id);
+    state.routeId=id; go('route');
+  }
+  else if(act==='finish'){
+    var id2=t.getAttribute('data-r'); var r=routeById(id2); var s=rs(id2);
+    var missing=r.claims.some(function(c,i){ return !s.ratings[i]; });
+    var msg=document.getElementById('finish-msg');
+    if(missing){ msg.textContent='Rate every claim card first, then finish the route.'; return; }
+    s.confSet=true; state.done[id2]=true; renderNav();
+    msg.style.color='var(--ok)';
+    msg.textContent = doneCount()>=2 ? 'Route finished. You have done your 2 routes. Go to Reflect, or pick a bonus route.' : 'Route finished. Pick another route to explore.';
+    t.textContent='Route finished (update)';
+  }
+  else if(act==='showvid'){ var k=t.getAttribute('data-k'); state.shown[k]=true; refreshVideo(k); }
+  else if(act==='togglealt'){ var k2=t.getAttribute('data-k'); state.altOpen[k2]=!state.altOpen[k2]; refreshVideo(k2); }
+  else if(act==='unlock'){
+    var inp=document.getElementById('pass'); var err=document.getElementById('passerr');
+    var val=(inp.value||'').trim();
+    if(btoa(val)===PASS_B64){ state.unlocked=true; render(); window.scrollTo(0,0); }
+    else { err.textContent='That passcode did not work. Check with your teacher and try again.'; inp.select(); }
+  }
+  else if(act==='copy'){ copySheet(); }
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter' && e.target && e.target.id==='pass'){
+    e.preventDefault();
+    var b=document.querySelector('[data-act="unlock"]'); if(b) b.click();
+  }
+});
+function refreshVideo(key){
+  var el=document.getElementById('vid-'+key); if(!el) return;
+  var tmp=document.createElement('div'); tmp.innerHTML=videoBlock(key);
+  el.parentNode.replaceChild(tmp.firstChild, el);
+}
+function onField(e){
+  var t=e.target; var k=t.getAttribute && t.getAttribute('data-k'); if(!k) return;
+  var r=t.getAttribute('data-r'); var i=t.getAttribute('data-i');
+  if(k==='rating'){ rs(r).ratings[i]=t.value; }
+  else if(k==='why'){ rs(r).whys[i]=t.value; }
+  else if(k==='src'){ rs(r).src[i]=t.value; }
+  else if(k==='conf'){ var s=rs(r); s.conf=parseInt(t.value,10); s.confSet=true; var o=document.getElementById('confout-'+r); if(o) o.textContent=t.value; }
+  else if(k==='after'){ var s2=rs(r); s2.after=parseInt(t.value,10); s2.afterSet=true; var o2=document.getElementById('afterout-'+r); if(o2) o2.textContent=t.value; }
+  else if(k==='changed'){ rs(r).changed=t.value; }
+  else if(k==='most'){ state.reflect.most=t.value; }
+  else if(k==='need'){ state.reflect.need=t.value; }
+  else if(k==='final'){ state.final=t.value; }
+  else if(k==='name'){ state.name=t.value; refreshSheet(); }
+  else if(k==='period'){ state.period=t.value; refreshSheet(); }
+  else if(k==='trick'){
+    var n=parseInt(t.value,10); var idx=state.reflect.tricks.indexOf(n);
+    if(t.checked && idx<0) state.reflect.tricks.push(n);
+    if(!t.checked && idx>-1) state.reflect.tricks.splice(idx,1);
+  }
+}
+document.getElementById('main').addEventListener('input',onField);
+document.getElementById('main').addEventListener('change',onField);
+function refreshSheet(){ var p=document.getElementById('sheetpre'); if(p) p.textContent=sheetText(); }
+function copySheet(){
+  var txt=sheetText(); var msg=document.getElementById('copymsg');
+  function fallback(){
+    var p=document.getElementById('sheetpre');
+    try{
+      var range=document.createRange(); range.selectNodeContents(p);
+      var sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      var ok=document.execCommand && document.execCommand('copy');
+      msg.textContent = ok ? 'Copied.' : 'Your answers are selected. Press Ctrl+C or Cmd+C to copy.';
+    }catch(err){ msg.textContent='Your answers are selected. Press Ctrl+C or Cmd+C to copy.'; }
+  }
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){ msg.textContent='Copied.'; }, fallback);
+    } else { fallback(); }
+  }catch(err){ fallback(); }
+}
+
+render();
+</script>
+</body>
+</html>
