@@ -524,6 +524,7 @@ var ROUTES = [
 },
 {
  id:'ruby', title:'Jack Ruby and the Mystery Men', hook:'Who was Jack Ruby, and who were the unknown men in the photos?',
+ note:'This route includes a photo from the moment Oswald was shot. It is not graphic, but you can choose a different route if you would rather not.',
  brief:'Two days after the shooting, a Dallas nightclub owner named Jack Ruby shot Oswald on live TV. Around the same time, photos showed unknown men near Dealey Plaza, and there were stories of an earlier plot in Chicago. This route asks if these pieces connect.',
  claims:[
   {t:'Ruby silenced Oswald on purpose.',
@@ -716,8 +717,8 @@ var RUBY_IMGS={
 };
 function rubyPair(){
   return '<div class="photo-pair">'+
-   '<figure class="photo wide p1" style="--rot:-1.2deg"><img src="'+RUBY_IMGS.a+'" width="320" height="214" alt="Black and white news photo of several men crowded tightly together, with arms and hands reaching toward a man at the center of the group.">'+
-   '<figcaption>A crowded news photo</figcaption></figure>'+
+   '<figure class="photo wide p1" style="--rot:-1.2deg"><img src="'+RUBY_IMGS.a+'" width="320" height="214" alt="Black and white close-up news photo from the shooting of Oswald, showing several men crowded tightly together, with arms and hands reaching toward a man at the center of the group.">'+
+   '<figcaption>Close-up from the shooting of Oswald</figcaption></figure>'+
    '<figure class="photo wide p2" style="--rot:1deg"><img src="'+RUBY_IMGS.b+'" width="900" height="603" alt="Black and white photo of police officers walking with two men in rumpled jackets across a street. A Dallas police car is at the left, with trees and low white buildings behind.">'+
    '<figcaption>Men walking with police near Dealey Plaza</figcaption></figure>'+
   '</div>'+
